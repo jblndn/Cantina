@@ -1,10 +1,13 @@
 <template>
-    <div class="container-recipe centered">
-    
+    <div class="container-recipe wrapper">
+        
+        
     </div>
 </template>
 
 <script>
+
+import Service from '../services/Service.js'
 
 export default {
     name: 'recipe',

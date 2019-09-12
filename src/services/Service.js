@@ -22,20 +22,20 @@ export default {
             .catch(errorHandler)
     },
 
-    // addUser: function (userObj) {
-    //     return axios.post(`${API_ENDPOINT}/recipes`, userObj)
-    //         .then(res => res.data)
-    //         .catch(errorHandler)
-    // },
+    addRecipe: function (recipeObj) {
+        return axios.post(`${API_ENDPOINT}/recipes`, recipeObj)
+            .then(res => res.data)
+            .catch(errorHandler)
+    },
 
-    // removeUser: function (userObj) {
+    // removeRecipe: function (userObj) {
     //     return axios.delete(`${API_ENDPOINT}/recipes/${userObj.id}`)
     //         .then(res => res.data)
     //         .catch(errorHandler)
     // },
 
     
-    // updateUser: function (userObj) {
+    // updateRecipe: function (userObj) {
     //     return axios.put(`${API_ENDPOINT}/recipes/${userObj.id}`, userObj)
     //         .then(res => res.data)
     //         .catch(errorHandler)

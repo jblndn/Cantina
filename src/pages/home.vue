@@ -41,17 +41,5 @@ export default {
         justify-content: flex-start;
         align-content: center;
     }
-    .font-menu{
-        font-size: 22px;
-        line-height: 25px;
-    }
-    .title-card{
-        font-size: 18px;
-        line-height: 22px;
-    }
-    .title-home{
-        font-size: 50px;
-        text-align: center;
-        margin: 40px 0;
-    }
+
 </style>

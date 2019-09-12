@@ -1,7 +1,7 @@
 <template>
 
     <div class="card">
-        <router-link :to='`/edit/${recipe.id}`'>
+        <router-link :to='`/recipe/${recipe.id}`'>
             <div class="container-img">
                 <img :src="recipe.photo" alt="">
                 <div class="container-icon">
