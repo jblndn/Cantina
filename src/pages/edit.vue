@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import Service from '../services/Service.js'
+
 export default {
     name: 'edit',
     data: function(){
@@ -12,6 +14,13 @@ export default {
             recipe: null
         }
     },
+    created: function(){
+        Service
+        .fetchOne(this.$route.params.id)
+        .then(recipe => {
+            this.recipe = recipe
+        })
+    } 
 }
 </script>
 

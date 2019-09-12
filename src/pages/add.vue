@@ -1,16 +1,16 @@
 <template>
     <div class="container-add centered">
-        <form/>
+        <Form/>
     </div>
 </template>
 
 <script>
-import form from "../components/form.vue"
+import Form from "../components/form.vue"
 
 export default {
     name: 'add',
     components: {
-        form
+        Form
     }
 }
 </script>

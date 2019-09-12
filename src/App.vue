@@ -15,3 +15,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  .centered{
+    margin: 0 auto;
+  }
+</style>
