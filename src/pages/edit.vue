@@ -5,7 +5,9 @@
 </template>
 
 <script>
-import Service from '../services/Service.js'
+import Form from "./Form.vue"
+import Service from "../services/Service"
+import Toasted from 'vue-toasted'
 
 export default {
     name: 'edit',

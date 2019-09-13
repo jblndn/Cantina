@@ -1,29 +1,48 @@
 <template>
     <form class="form-add wrapper" @submit.prevent="onSubmit">
+        <!-- title -->
         <div class="form-container">
             <label for="titre">Titre:</label>
-            <input type="text" id="titre" v-model="recipe.titre">
+            <input type="text" id="titre" v-model="$v.recipe.titre.$model">
+
+            <span class="champError" v-if="$v.recipe.titre.$dirty && !$v.recipe.titre.required">Le champs est requis</span>
+            <span class="champError" v-if="$v.recipe.titre.$dirty && !$v.recipe.titre.alpha">Le champs ne doit contenir que des lettres</span>
         </div>
+        <!-- description -->
         <div class="form-container">
             <label for="description">Description:</label>
-            <textarea name="description" id="description" v-model="recipe.description" cols="30" rows="10"></textarea>
+            <textarea name="description" id="description" v-model="$v.recipe.description.$model" cols="30" rows="10"></textarea>
+        
+            <span class="champError" v-if="$v.recipe.description.$dirty && !$v.recipe.description.required">Le champs est requis</span>
         </div>
+        <!-- niveau -->
         <div class="form-container">
             <label for="niveau">Niveau:</label>
-            <select name="niveau" id="niveau" v-model="recipe.niveau">
+            <select name="niveau" id="niveau" v-model="$v.recipe.niveau.$model">
                 <option value="padawan">Padawan</option>
                 <option value="jedi">Jedi</option>
                 <option value="maitre">Maître</option>
             </select>
+
+            <span class="champError" v-if="$v.recipe.niveau.$dirty && !$v.recipe.niveau.required">Le champs est requis</span>
         </div>
+        <!-- personnes -->
         <div class="form-container">
             <label for="personnes">Nombre de personnes :</label>
-            <input type="number" name="personnes" id="personnes" v-model="recipe.personnes" step="1">
+            <input type="number" name="personnes" id="personnes" v-model.number="$v.recipe.personnes.$model" step="1">
+            
+            <span class="champError" v-if="$v.recipe.personnes.$dirty && !$v.recipe.personnes.required">Le champs est requis</span>
+            <span class="champError" v-if="$v.recipe.personnes.$dirty && !$v.recipe.personnes.integer">Nombre entier requis</span>
         </div>
+        <!-- temps -->
         <div class="form-container">
             <label for="temps">Temps de préparation (en min) :</label>
-            <input type="number" name="temps" id="temps" v-model="recipe.tempsPreparation" step="5">
+            <input type="number" name="temps" id="temps" v-model.number="$v.recipe.tempsPreparation.$model" step="5">
+            
+            <span class="champError" v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.required">Le champs est requis</span>
+            <span class="champError" v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.integer">Nombre entier requis</span>
         </div>
+        <!-- ingredient -->
         <div class="form-container">
             <label for="ingredients">Ingrédients :</label>
             <ul class="container-ingredient">
@@ -49,7 +68,9 @@
             <button type="button" @click="addIngredient">
                 Ajouter un ingrédient
             </button>
+
         </div>
+        <!-- etapes -->
         <div class="form-container">
             <label for="etapes">Etapes :</label>
             <ul class="container-step">
@@ -64,9 +85,12 @@
                 Ajouter une étape
             </button>
         </div>
+        <!-- photo -->
         <div class="form-container">
             <label for="photo">Photo :</label>
-            <input type="url" id="photo" v-model="recipe.photo">
+            <input type="url" name="photo" id="photo" v-model="$v.recipe.photo.$model">
+
+            <span v-if="!$v.recipe.photo">L'URL est invalide</span>
         </div>
         <div class="form-container">
             <button type="submit">
@@ -77,6 +101,8 @@
 </template>
 
 <script>
+import { required, alpha, url, integer } from "vuelidate/lib/validators";
+import Service from "../services/Service"
 
 export default {
     name: 'Form',
@@ -98,6 +124,18 @@ export default {
             }
         }
     },
+    validations: {
+        recipe: {
+            titre: {required, alpha},
+            description: {required},
+            niveau: {required},
+            personnes: {required, integer},
+            tempsPreparation: {required, integer},
+            ingredients: {required},
+            etapes: {required},
+            photo: {url},
+        }
+  },
     methods: {
         addIngredient: function(){
             let oneIngredient = '<li class="one-ingredient">'+
@@ -135,37 +173,20 @@ export default {
             console.log(this);
              this.$event.target.parent().removeChild(this.$event.target);
         },
-        // getTitle: function(){
-        //     let titleValue = document.querySelector('#titre').value;
-
-        //     this.recipe.titre = titleValue;
-        // },
-        // getDescription: function(){
-        //     let descriptionValue = document.querySelector('#description').value;
-
-        //     this.recipe.description = descriptionValue;
-        // },
-        // getLevel: function(){
-        //     let levelValue = document.querySelector('#niveau').value;
-
-        //     this.recipe.niveau = levelValue;
-        // },
-        // getPeople: function(){
-        //     let peopleValue = document.querySelector('#personnes').value;
-
-        //     this.recipe.personnes = peopleValue;
-        // },
         getIngredients: function(){
             let ingredientsDOM = document.querySelectorAll('.one-ingredient');
             let ingredients = [];
 
             for (let i = 0; i < ingredientsDOM.length; i++) {
 
+                let ingredientValue = []
+
                 let number = ingredientsDOM[i].querySelector('#nombre').value;
                 let mesure = ingredientsDOM[i].querySelector('#mesure').value;
+                let quantity = number + mesure;
                 let name = ingredientsDOM[i].querySelector('#nom').value;
 
-                let ingredientValue = number + mesure + ' ' + name;
+                ingredientValue.push(quantity,name)
                 ingredients.push(ingredientValue)
 
             }
@@ -183,19 +204,11 @@ export default {
             }
             this.recipe.etapes = steps;
         },
-        // getPicture: function(){
-        //     let pictureValue = document.querySelector('#photo').value;
-
-        //     this.recipe.photo = pictureValue;
-        // },
         onSubmit: function(){
-            // this.getTitle();
-            // this.getDescription();
-            // this.getLevel();
-            // this.getPeople();
             this.getIngredients();
             this.getSteps();
-            // this.getPicture();
+            if(this.$v.recipe.$invalid) 
+            return this.$v.recipe.$touch();
             this.$emit('send', this.recipe)
         }
     }

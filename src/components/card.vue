@@ -3,14 +3,14 @@
     <div class="card">
         <router-link :to='`/recipe/${recipe.id}`'>
             <div class="container-img">
-                <img :src="recipe.photo" alt="">
+                <img :src="recipe.photo || DEFAULT_PHOTO" alt="">
                 <div class="container-icon">
                         <router-link :to='`/edit/${recipe.id}`'>
                             <div class="circle-icon event-edit">
                                 <i class="fas fa-edit"></i>
                             </div>
                         </router-link>
-                        <div class="circle-icon event-delete">
+                        <div class="circle-icon event-delete" @click.prevent="remove">
                             <i class="fas fa-times"></i>
                         </div>
                 </div>
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import Service from "../services/Service"
 
 export default {
     name: 'app',
@@ -51,7 +52,15 @@ export default {
             required: true
         }
     },
+    computed: {
+        DEFAULT_PHOTO: function(){
+            return "../assets/default-recipes.jpg"
+        }
+    },
     methods: {
+        remove : function(){
+            this.$emit('remove', this.recipe)
+        },
         edit: function(){
             this.$emit('edit', this.recipe)
         }

@@ -28,11 +28,11 @@ export default {
             .catch(errorHandler)
     },
 
-    // removeRecipe: function (userObj) {
-    //     return axios.delete(`${API_ENDPOINT}/recipes/${userObj.id}`)
-    //         .then(res => res.data)
-    //         .catch(errorHandler)
-    // },
+    removeRecipe: function (userObj) {
+        return axios.delete(`${API_ENDPOINT}/recipe/${userObj.id}`)
+            .then(res => res.data)
+            .catch(errorHandler)
+    },
 
     
     // updateRecipe: function (userObj) {

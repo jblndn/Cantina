@@ -18,7 +18,7 @@ export default {
 
 <style>
   .wrapper{
-    width: 800px;
+    width: 970px;
     margin: 0 auto;
   }
   .centered{
