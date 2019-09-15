@@ -1,10 +1,10 @@
 <template>
-    <div class="container wrapper">
+    <div class="container col-lg">
         <h1 class="title-home">
             Bienvenue sur Cantina
         </h1>
         <form class="filter-container" @submit.prevent>
-            <label for="filter">Filtres :</label>
+            <label for="filter" class="title-filtre">Filtres :</label>
 
             <div class="filter-group">
                 <input type="search" placeholder="Tapez un nom ..." v-model="filterTitle">

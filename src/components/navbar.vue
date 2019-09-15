@@ -23,7 +23,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    $red: #ec5b4a;
     header{
         width: 100%;
         text-align: center;
@@ -43,6 +44,7 @@ export default {
     }
     a{
         text-decoration: none;
+        color: $red;
     }
 </style>
 

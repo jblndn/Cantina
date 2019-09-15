@@ -135,7 +135,7 @@ export default {
             etapes: {required},
             photo: {url},
         }
-  },
+    },
     methods: {
         addIngredient: function(){
             let oneIngredient = '<li class="one-ingredient">'+

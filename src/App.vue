@@ -16,7 +16,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+  $red: #ec5b4a;
   .wrapper{
     width: 970px;
     margin: 0 auto;
@@ -27,6 +28,7 @@ export default {
   .font-menu{
     font-size: 22px;
     line-height: 25px;
+    font-family: 'Nunito';
   }
   .title-card{
     font-size: 18px;
@@ -36,5 +38,8 @@ export default {
     font-size: 50px;
     text-align: center;
     margin: 40px 0;
+    color: $red;
+    font-family: 'Nunito';
+    font-weight: bold;
   }
 </style>
