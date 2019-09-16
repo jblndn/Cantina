@@ -33,6 +33,8 @@
             
             <span class="champError" v-if="$v.recipe.personnes.$dirty && !$v.recipe.personnes.required">Le champs est requis</span>
             <span class="champError" v-if="$v.recipe.personnes.$dirty && !$v.recipe.personnes.integer">Nombre entier requis</span>
+            <span class="champError" v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.between">Nombre positif requis</span>
+
         </div>
         <!-- temps -->
         <div class="form-container">
@@ -41,34 +43,16 @@
             
             <span class="champError" v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.required">Le champs est requis</span>
             <span class="champError" v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.integer">Nombre entier requis</span>
+            <span class="champError" v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.between">Nombre positif requis</span>
+
         </div>
         <!-- ingredient -->
         <div class="form-container">
             <label for="ingredients">Ingrédients :</label>
-            <ul class="container-ingredient">
-                <li class="one-ingredient">
-                    <input type="number" id="nombre">
-                    <select name="mesure" id="mesure">
-                        <option value=""> </option>
-                        <option value="l">l</option>
-                        <option value="dl">dl</option>
-                        <option value="cl">cl</option>
-                        <option value="ml">ml</option>
-                        <option value="g">g</option>
-                        <option value="dg">dg</option>
-                        <option value="cg">cg</option>
-                        <option value="mg">mg</option>
-                    </select>
-                    <input type="text" id="nom">
-                    <button type="button" @click="deleteIngredient">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </li>
-            </ul>
+            <formIngredient v-for="(ingredient, index) in recipe.ingredients" :key="ingredient.id" :index="index" :recipe="recipe"/>
             <button type="button" @click="addIngredient">
                 Ajouter un ingrédient
             </button>
-
         </div>
         <!-- etapes -->
         <div class="form-container">
@@ -101,11 +85,15 @@
 </template>
 
 <script>
-import { required, alpha, url, integer } from "vuelidate/lib/validators";
-import Service from "../services/Service"
+import { required, alpha, url, integer, between } from "vuelidate/lib/validators";
+import Service from "../services/Service";
+import formIngredient from "./formIngredient";
 
 export default {
     name: 'Form',
+    components: {
+        formIngredient
+    },
     props: {
         recipe: {
             type: Object,
@@ -117,8 +105,8 @@ export default {
                     niveau: '',
                     personnes: '',
                     tempsPreparation: '',
-                    ingredients: [],
-                    etapes: [],
+                    ingredients: [""],
+                    etapes: [""],
                     photo: '',
                 }
             }
@@ -129,8 +117,8 @@ export default {
             titre: {required, alpha},
             description: {required},
             niveau: {required},
-            personnes: {required, integer},
-            tempsPreparation: {required, integer},
+            personnes: {required, integer, between: between(0,9999)},
+            tempsPreparation: {required, integer, between: between(0,9999)},
             ingredients: {required},
             etapes: {required},
             photo: {url},
@@ -138,26 +126,7 @@ export default {
     },
     methods: {
         addIngredient: function(){
-            let oneIngredient = '<li class="one-ingredient">'+
-                    '<input type="number" id="nombre">'+
-                    '<select name="mesure" id="mesure">'+
-                        '<option value="empty"> </option>'+
-                        '<option value="l">l</option>'+
-                        '<option value="dl">dl</option>'+
-                        '<option value="cl">cl</option>'+
-                        '<option value="ml">ml</option>'+
-                        '<option value="g">g</option>'+
-                        '<option value="dg">dg</option>'+
-                        '<option value="cg">cg</option>'+
-                        '<option value="mg">mg</option>'+
-                    '</select>'+
-                    '<input type="text" id="nom">'+
-                    '<button type="button" @click="deleteIngredient">'+
-                        '<i class="fas fa-times"></i>'+
-                    '</button>'+
-                '</li>'
-
-            $('.container-ingredient').append(oneIngredient);
+            this.recipe.ingredients.push('');
         },
         addStep: function(){
             let oneStep = '<li class="one-step">'+
@@ -171,7 +140,10 @@ export default {
         },
         deleteIngredient: function(){
             console.log(this);
-             this.$event.target.parent().removeChild(this.$event.target);
+            this.$event.target.parent().removeChild(this.$event.target);
+        },
+        setIngredient: function(){
+            
         },
         getIngredients: function(){
             let ingredientsDOM = document.querySelectorAll('.one-ingredient');

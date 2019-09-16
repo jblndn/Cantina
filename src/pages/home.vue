@@ -103,7 +103,7 @@ export default {
     
     .filter-container{
         margin: 30px 0;
-        font-family: 'Nunito';
+            font-family: 'Nunito';
 
         .title-filtre{
             font-weight: bold;
