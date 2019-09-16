@@ -36,8 +36,8 @@ export default {
     name: 'formIngredient',
     data: function(){
         return {
-            ingredientNumber: '',
-            ingredientMesure: '',
+            ingredientNumber: this.setNumber(),
+            ingredientMesure: this.setMesure(),
             ingredientText: this.recipe.ingredients[this.index][1]
         }
     },
@@ -52,7 +52,38 @@ export default {
         },
         index: {
             type: Number
-        }
+        },
+    },
+    methods: {
+        setNumber: function(){
+            let ingredientStr = this.recipe.ingredients[this.index][0];
+
+            if (ingredientStr !== "") {
+                var numbers = ingredientStr.match(/\d+/g);
+                console.log(numbers);
+                return numbers;
+            }
+            else{
+                return '';
+            }
+        },
+        setMesure: function(){
+            let mesureStr = this.recipe.ingredients[this.index][0];
+
+            if(mesureStr !== ""){
+                let arrayStr = mesureStr.match(/[a-zA-Z]+|[0-9]+(?:\.[0-9]+|)/g);
+                return arrayStr[1];
+            }
+            else{
+                return '';
+            }
+            
+        },
+        deleteIngredient: function(){
+            let ingredients = this.recipe.ingredients;
+            ingredients.splice(this.index,1);
+            console.log(ingredients);
+        },
     }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <form class="form-add wrapper" @submit.prevent="onSubmit">
+    <form class="form-add container col-sm-" @submit.prevent="onSubmit">
         <!-- title -->
         <div class="form-container">
             <label for="titre">Titre:</label>
@@ -59,10 +59,7 @@
             <label for="etapes">Etapes :</label>
             <ul class="container-step">
                 <li class="one-step">
-                    <textarea name="etape" id="etape" cols="30" rows="10"></textarea>
-                    <button>
-                        <i class="fas fa-times"></i>
-                    </button>
+                    <formEtape v-for="(etapes, index) in recipe.etapes" :key="etapes.id" :index="index" :recipe="recipe"/>
                 </li>
             </ul>
             <button type="button" @click="addStep">
@@ -88,11 +85,13 @@
 import { required, alpha, url, integer, between } from "vuelidate/lib/validators";
 import Service from "../services/Service";
 import formIngredient from "./formIngredient";
+import formEtape from "./formEtape";
 
 export default {
     name: 'Form',
     components: {
-        formIngredient
+        formIngredient,
+        formEtape
     },
     props: {
         recipe: {
@@ -105,8 +104,8 @@ export default {
                     niveau: '',
                     personnes: '',
                     tempsPreparation: '',
-                    ingredients: [""],
-                    etapes: [""],
+                    ingredients: [['']],
+                    etapes: [['']],
                     photo: '',
                 }
             }
@@ -126,7 +125,7 @@ export default {
     },
     methods: {
         addIngredient: function(){
-            this.recipe.ingredients.push('');
+            this.recipe.ingredients.push(['']);
         },
         addStep: function(){
             let oneStep = '<li class="one-step">'+
@@ -137,13 +136,6 @@ export default {
                 '</li>'
 
             $('.container-step').append(oneStep);
-        },
-        deleteIngredient: function(){
-            console.log(this);
-            this.$event.target.parent().removeChild(this.$event.target);
-        },
-        setIngredient: function(){
-            
         },
         getIngredients: function(){
             let ingredientsDOM = document.querySelectorAll('.one-ingredient');
@@ -191,6 +183,7 @@ export default {
 
     .form-container{
         margin-bottom: 20px;
+        text-align: center;
     }
 </style>
 
