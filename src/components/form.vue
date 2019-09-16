@@ -49,7 +49,7 @@
         <div class="form-container">
             <label for="ingredients">Ingrédients :</label>
             <formIngredient v-for="(ingredient, index) in recipe.ingredients" :key="ingredient.id" :index="index" :recipe="recipe"/>
-            <button type="button" @click="addIngredient">
+            <button type="button" class="btn-add" @click="addIngredient">
                 Ajouter un ingrédient
             </button>
         </div>
@@ -61,7 +61,7 @@
                     <formEtape v-for="(etapes, index) in recipe.etapes" :key="etapes.id" :index="index" :recipe="recipe"/>
                 </li>
             </ul>
-            <button type="button" @click="addStep">
+            <button type="button" class="btn-add" @click="addStep">
                 Ajouter une étape
             </button>
         </div>
@@ -73,7 +73,7 @@
             <span v-if="!$v.recipe.photo">L'URL est invalide</span>
         </div>
         <div class="form-container">
-            <button type="submit">
+            <button type="submit" class="btn-add">
                 Envoyer
             </button>
         </div>
@@ -176,6 +176,13 @@ $grey: #999999;
         .form-container{
             margin-bottom: 40px;
             font-family: 'Nunito';
+            .btn-add{
+                border: none;
+                background-color: $red;
+                color: white;
+                padding: 5px 10px;
+                font-family: 'Nunito';
+            }
             label{
                 display: block;
                 color: $red;

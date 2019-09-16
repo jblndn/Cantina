@@ -1,5 +1,5 @@
 <template>
-    <div class="container-recipe wrapper col-lg-">
+    <div class="container-recipe container col-lg-">
         <div class="intro ">
             <img :src="this.recipe.photo" alt="Photo recette" class="img-recipe">
             <div class="container-text">
@@ -53,7 +53,14 @@
             </ul>
         </div>
 
-        
+        <div class="container-btn">
+            <button class="btn-recipe" type="button" @click="editRecipe">
+                Editer
+            </button>
+            <button class="btn-recipe" type="button" @click="deleteRecipe(recipe)">
+                Supprimer
+            </button>
+        </div>
     </div>
 </template>
 
@@ -65,14 +72,39 @@ export default {
     name: 'recipe',
     data: function(){
         return {
-            recipe: null
+            recipe: null,
+            recipesList: null
         }
+    },
+    methods: {
+        editRecipe: function(){
+            this.$emit('edit', this.recipe)
+            this.$router.replace(`/edit/${this.recipe.id}`);
+        },
+        deleteRecipe: function(recipeDelete){
+            this.$emit('remove', this.recipe);
+            Service.removeRecipe(recipeDelete).then(res => {
+                    let index = this.recipesList.indexOf(recipeDelete);
+                    if (index > -1){
+                        this.recipesList.splice(index, 1);
+                    }
+                    this.$router.replace('/')
+                    this.$toasted.success(`Recette ${res.recette.titre} suprrimé !`)
+            })
+            .catch(errorMessage => alert(errorMessage))
+        }
+        
     },
     created: function(){
         Service
         .fetchOne(this.$route.params.id)
         .then(recipe => {
             this.recipe = recipe;
+        });
+        Service
+        .fetchAll()
+        .then(recipesList => {
+            this.recipesList = recipesList
         })
     }
 }
@@ -82,7 +114,8 @@ $red: #ec5b4a;
 $grey: #999999;
 
 .container-recipe{
-    margin: 80px auto 0 auto;
+    margin: 0 auto;
+    padding: 80px 0;
     
     .intro{
         display: flex;
@@ -155,6 +188,19 @@ $grey: #999999;
                 margin-right: 5px;
 
             }
+        }
+    }
+    .container-btn{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        button{
+            border: none;
+            background-color: $red;
+            color: white;
+            padding: 5px 10px;
+            font-family: 'Nunito';
         }
     }
 }
