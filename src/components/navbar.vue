@@ -45,6 +45,10 @@ export default {
     a{
         text-decoration: none;
         color: $red;
+        &:hover{
+            text-decoration: none;
+            color: $red;
+        }
     }
 </style>
 

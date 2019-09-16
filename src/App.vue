@@ -29,6 +29,7 @@ export default {
     font-size: 22px;
     line-height: 25px;
     font-family: 'Nunito';
+    font-weight: bold;
   }
   .title-card{
     font-size: 18px;

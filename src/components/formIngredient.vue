@@ -15,14 +15,13 @@
                     <option value="mg">mg</option>
                 </select>
                 <input type="text" id="nom" v-model="$v.ingredientText.$model">
-                <button type="button" @click="deleteIngredient">
+                <button type="button" class="btn-delete" @click="deleteIngredient">
                     <i class="fas fa-times"></i>
                 </button>
             </li>
         </ul>
         <span class="champError" v-if="$v.ingredientNumber.$dirty && !$v.ingredientNumber.between">Champ manquant</span>
         <span class="champError" v-if="$v.ingredientNumber.$dirty && !$v.ingredientNumber.between">Nombre positif requis</span>
-        <span class="champError" v-if="$v.ingredientText.$dirty && !$v.ingredientText.alpha">Le 3ème champ ne doit contenir que des lettres</span>
 
     </div>
 
@@ -30,7 +29,7 @@
 
 <script>
 import Service from '../services/Service.js'
-import { required, alpha, integer, numeric, between } from "vuelidate/lib/validators";
+import { required, integer, numeric, between } from "vuelidate/lib/validators";
 
 export default {
     name: 'formIngredient',
@@ -44,7 +43,7 @@ export default {
     validations: {
         ingredientNumber: {required, numeric, between: between(0,9999)},
         ingredientMesure: {required},
-        ingredientText: {required, alpha},
+        ingredientText: {required},
     },
     props: {
         recipe: {
@@ -80,15 +79,47 @@ export default {
             
         },
         deleteIngredient: function(){
-            let ingredients = this.recipe.ingredients;
-            ingredients.splice(this.index,1);
-            console.log(ingredients);
+            // let ingredients = this.recipe.ingredients;
+            // ingredients.splice(this.index,1);
+            // console.log(ingredients);
         },
     }
 }
 </script>
-<style lang="scss">
-    
+<style lang="scss" scoped>
+    $red: #ec5b4a;
+
+    #nombre, #mesure{
+        margin-right: 5px;
+    }
+    #nombre{
+        width: 70px;
+    }
+    #mesure{
+        width: 70px;
+        height: 30px;
+    }
+    #nom{
+        width: 250px;
+        margin-right: 30px;
+    }
+    .btn-delete{
+        width: 26px;
+        height: 26px;
+        background-color: $red;
+        border: none;
+        border-radius: 50%;
+        position: relative;
+        vertical-align: middle;
+        i{
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+    }
+
     
 
 </style>

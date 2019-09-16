@@ -6,7 +6,6 @@
             <input type="text" id="titre" v-model="$v.recipe.titre.$model">
 
             <span class="champError" v-if="$v.recipe.titre.$dirty && !$v.recipe.titre.required">Le champs est requis</span>
-            <span class="champError" v-if="$v.recipe.titre.$dirty && !$v.recipe.titre.alpha">Le champs ne doit contenir que des lettres</span>
         </div>
         <!-- description -->
         <div class="form-container">
@@ -113,7 +112,7 @@ export default {
     },
     validations: {
         recipe: {
-            titre: {required, alpha},
+            titre: {required},
             description: {required},
             niveau: {required},
             personnes: {required, integer, between: between(0,9999)},
@@ -128,43 +127,30 @@ export default {
             this.recipe.ingredients.push(['']);
         },
         addStep: function(){
-            let oneStep = '<li class="one-step">'+
-                    '<textarea name="etape" id="etape" cols="30" rows="10"></textarea>'+
-                    '<button>'+
-                        '<i class="fas fa-times"></i>'+
-                    '</button>'+
-                '</li>'
-
-            $('.container-step').append(oneStep);
+            this.recipe.etapes.push('');
         },
         getIngredients: function(){
             let ingredientsDOM = document.querySelectorAll('.one-ingredient');
             let ingredients = [];
-
             for (let i = 0; i < ingredientsDOM.length; i++) {
-
                 let ingredientValue = []
-
                 let number = ingredientsDOM[i].querySelector('#nombre').value;
                 let mesure = ingredientsDOM[i].querySelector('#mesure').value;
                 let quantity = number + mesure;
                 let name = ingredientsDOM[i].querySelector('#nom').value;
-
                 ingredientValue.push(quantity,name)
                 ingredients.push(ingredientValue)
-
             }
             this.recipe.ingredients = ingredients;
         },
         getSteps: function(){
             let stepDom = document.querySelectorAll('.one-step');
             let steps = [];
-
+            console.log(stepDom);
             for (let i = 0; i < stepDom.length; i++) {
-
                 let stepValue = stepDom[i].querySelector('#etape').value;
+                console.log(stepValue);
                 steps.push(stepValue)
-
             }
             this.recipe.etapes = steps;
         },
@@ -173,17 +159,43 @@ export default {
             this.getSteps();
             if(this.$v.recipe.$invalid) 
             return this.$v.recipe.$touch();
-            this.$emit('send', this.recipe)
+            this.$emit('send', this.recipe);
+            alert(`Recette ${this.recipe.titre} ajoutée !`);
         }
     }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+$red: #ec5b4a;
+$grey: #999999;
 
-    .form-container{
-        margin-bottom: 20px;
-        text-align: center;
+    .form-add{
+        max-width: 540px;
+        margin-top: 60px;
+        .form-container{
+            margin-bottom: 40px;
+            font-family: 'Nunito';
+            label{
+                display: block;
+                color: $red;
+                font-weight: bold;
+                font-size: 1.2rem;
+            }
+            input{
+                padding: 5px 10px;
+                &#photo{
+                    width: 100%;
+                }
+            }
+            textarea{
+                padding: 5px 10px;
+                &#description{
+                    width: 100%;
+                    height: 150px;
+                }
+            }
+        }
     }
 </style>
 

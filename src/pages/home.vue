@@ -24,14 +24,14 @@
             <div class="filter-group">
                 <label for="number" class="label-filter">Nbr de personnes :</label>
                 <span>Entre</span>
-                <input type="number" v-model="filterPeople1">
+                <input type="number" v-model="filterPeople1" placeholder="0">
                 <span>et</span>
-                <input type="number" v-model="filterPeople2">
+                <input type="number" v-model="filterPeople2" placeholder="4">
             </div>
 
             <div class="filter-group">
                 <label for="time" class="label-filter">Temps de préparation :</label>
-                <input type="number" step="5" v-model="filterTime">
+                <input type="number" step="5" v-model="filterTime" placeholder="15min">
             </div>
         </form>
         <div class="container-cards" v-if="recipesList">
@@ -100,6 +100,8 @@ export default {
 }
 </script>
 <style lang="scss">
+    $red: #ec5b4a;
+
     
     .filter-container{
         margin: 30px 0;
@@ -109,12 +111,17 @@ export default {
             font-weight: bold;
             font-size: 1.8rem;
             display: block;
+            color: $red;
         }
         .filter-group{
-            display: inline-block;
-            margin-right: 25px;
+            display: block;
+            margin-bottom: 10px;    
             .label-filter{
                 margin-right: 5px;
+            }
+            input{
+                padding: 3px 8px;
+                margin: 0 5px
             }
         }
     }
