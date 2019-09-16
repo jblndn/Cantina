@@ -30,10 +30,10 @@
                     {{ recipe.niveau }}
                 </span>
                 <div class="container-time">
-                        <span class="time">
-                            {{ recipe.tempsPreparation }}min
-                        </span>
-                        <i class="fas fa-clock"></i>
+                    <span class="time">
+                        {{ recipe.tempsPreparation }}min
+                    </span>
+                    <i class="fas fa-clock"></i>
                 </div>
             </div>
         </div>
@@ -75,10 +75,15 @@ export default {
     .card{
         width: 300px;
         margin-left: 20px;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
         border-radius: 2%;
         border: none;
         color: $grey;
+        transition: transform 300ms ease-in-out;
+
+        &:hover{
+            transform: scale(1.02);
+        }
         
         /* Container image */
         .container-img{
@@ -117,6 +122,10 @@ export default {
                 background-color: $red;
                 position: relative;
                 margin: 15px 10px;
+                transition: transform 300ms ease-in-out;
+                &:hover{
+                    transform: scale(1.15);
+                }
                 i{
                     position: absolute;
                     top: 50%;
@@ -152,7 +161,6 @@ export default {
             }
             i{
                 font-size: 1rem;
-                color: $red;
             }
         }
         .container-clock{
@@ -162,7 +170,6 @@ export default {
             }
             i{
                 font-size: 1rem;
-                color: $red;
             }
         }
         .container-bottom{

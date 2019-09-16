@@ -19,7 +19,7 @@ export default {
 <style lang="scss">
   $red: #ec5b4a;
   .wrapper{
-    width: 970px;
+    width: 1024px;
     margin: 0 auto;
   }
   .centered{

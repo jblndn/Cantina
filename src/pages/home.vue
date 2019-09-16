@@ -1,5 +1,5 @@
 <template>
-    <div class="container col-lg">
+    <div class="container col-lg-">
         <h1 class="title-home">
             Bienvenue sur Cantina
         </h1>
@@ -7,10 +7,12 @@
             <label for="filter" class="title-filtre">Filtres :</label>
 
             <div class="filter-group">
-                <input type="search" placeholder="Tapez un nom ..." v-model="filterTitle">
+                <label for="nom" class="label-filter">Nom:</label>
+                <input type="search" name="nom" placeholder="Tapez un nom ..." v-model="filterTitle">
             </div>
         
             <div class="filter-group">
+                <label for="niveau" class="label-filter">Niveau :</label>
                 <select name="niveau" v-model='filterLevel'>
                     <option value="all">Tout</option>
                     <option value="padawan">Padawan</option>
@@ -20,6 +22,7 @@
             </div>
 
             <div class="filter-group">
+                <label for="number" class="label-filter">Nbr de personnes :</label>
                 <span>Entre</span>
                 <input type="number" v-model="filterPeople1">
                 <span>et</span>
@@ -27,6 +30,7 @@
             </div>
 
             <div class="filter-group">
+                <label for="time" class="label-filter">Temps de préparation :</label>
                 <input type="number" step="5" v-model="filterTime">
             </div>
         </form>
@@ -95,9 +99,24 @@ export default {
     } 
 }
 </script>
-<style>
+<style lang="scss">
+    
     .filter-container{
         margin: 30px 0;
+        font-family: 'Nunito';
+
+        .title-filtre{
+            font-weight: bold;
+            font-size: 1.8rem;
+            display: block;
+        }
+        .filter-group{
+            display: inline-block;
+            margin-right: 25px;
+            .label-filter{
+                margin-right: 5px;
+            }
+        }
     }
     .container-cards{
         width: 100%;
