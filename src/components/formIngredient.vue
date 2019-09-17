@@ -20,7 +20,8 @@
                 </button>
             </li>
         </ul>
-        <span class="champError" v-if="$v.ingredientNumber.$dirty && !$v.ingredientNumber.between">Champ manquant</span>
+        <span class="champError" v-if="$v.ingredientNumber.$dirty && !$v.ingredientNumber.required">Premier champ manquant</span>
+        <span class="champError" v-if="$v.ingredientText.$dirty && !$v.ingredientText.required">3ème champ manquant</span>
         <span class="champError" v-if="$v.ingredientNumber.$dirty && !$v.ingredientNumber.between">Nombre positif requis</span>
 
     </div>
@@ -118,6 +119,11 @@ export default {
             left: 50%;
             transform: translate(-50%,-50%);
         }
+    }
+    .champError{
+        display: block;
+        color: red;
+        margin-top: 5px;    
     }
 
     

@@ -183,6 +183,11 @@ $grey: #999999;
                 padding: 5px 10px;
                 font-family: 'Nunito';
             }
+            .champError{
+                display: block;
+                color: red;
+                margin-top: 5px;
+            }
             label{
                 display: block;
                 color: $red;

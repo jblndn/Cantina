@@ -31,7 +31,7 @@
                 </span>
                 <div class="container-time">
                     <span class="time">
-                        {{ recipe.tempsPreparation }}min
+                        {{ recipe.tempsPreparation | convertMin  }}
                     </span>
                     <i class="fas fa-clock"></i>
                 </div>
@@ -46,15 +46,33 @@ import Service from "../services/Service"
 
 export default {
     name: 'app',
+    data: function(){
+        return {
+            timeConvert: ''
+        }
+    },
     props : {
         recipe : {
             type: Object,
             required: true
         }
     },
+    filters: {
+        convertMin: function(value){
+            if (value > 60) {
+                let hours = Math.floor(value / 60);          
+                let minutes = value % 60;
+
+                return hours + 'h' + minutes;
+            }
+            else{
+                return value + 'min';
+            }
+        }
+    },
     computed: {
         DEFAULT_PHOTO: function(){
-            return "../assets/default-recipes.jpg"
+            return "../assets/default-recipes.jpg";
         }
     },
     methods: {
@@ -63,6 +81,22 @@ export default {
         },
         edit: function(){
             this.$emit('edit', this.recipe)
+        },
+        convertMin: function(){
+            let totalMin = this.recipe.tempPreparation;
+
+            if( totalMin > 59){
+                let hours = Math.floor(totalMin / 60);          
+                let minutes = totalMin % 60;
+                let minHours = hours + 'h' + minutes;
+                console.log(hours, minutes, minHours);
+
+                this.recipe.timeConvert = minHours;
+            
+            }
+            else{
+                this.recipe.timeConvert = this.recipe.tempPreparation + 'min';
+            }
         }
     }
 }
