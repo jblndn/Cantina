@@ -82,16 +82,18 @@ export default {
             this.$router.replace(`/edit/${this.recipe.id}`);
         },
         deleteRecipe: function(recipeDelete){
-            this.$emit('remove', this.recipe);
-            Service.removeRecipe(recipeDelete).then(res => {
-                    let index = this.recipesList.indexOf(recipeDelete);
-                    if (index > -1){
-                        this.recipesList.splice(index, 1);
-                    }
-                    this.$router.replace('/')
-                    this.$toasted.success(`Recette ${res.recette.titre} suprrimé !`)
-            })
-            .catch(errorMessage => alert(errorMessage))
+            if (confirm('Voulez-vous supprimer cette recette ?')) {
+                this.$emit('remove', this.recipe);
+                Service.removeRecipe(recipeDelete).then(res => {
+                        let index = this.recipesList.indexOf(recipeDelete);
+                        if (index > -1){
+                            this.recipesList.splice(index, 1);
+                        }
+                        this.$router.replace('/')
+                        this.$toasted.success(`Recette ${res.recette.titre} suprrimé !`)
+                })
+                .catch(errorMessage => alert(errorMessage))
+            }
         }
         
     },

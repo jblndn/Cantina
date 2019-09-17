@@ -81,14 +81,16 @@ export default {
     },
     methods: {
         removeRecipe: function(recipeDelete){
-            Service.removeRecipe(recipeDelete).then(res => {
+            if (confirm('Voulez-vous supprimer cette recette ?')) {
+                Service.removeRecipe(recipeDelete).then(res => {
                     let index = this.recipesList.indexOf(recipeDelete);
                     if (index > -1){
                         this.recipesList.splice(index, 1);
                     }
                     this.$toasted.success(`Recette ${res.recette.titre} suprrimé !`)
-        })
-        .catch(errorMessage => alert(errorMessage))}
+                })
+                .catch(errorMessage => alert(errorMessage))}
+            }
     },
     created: function(){
         Service
