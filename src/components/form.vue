@@ -149,7 +149,6 @@ export default {
             console.log(stepDom);
             for (let i = 0; i < stepDom.length; i++) {
                 let stepValue = stepDom[i].querySelector('#etape').value;
-                console.log(stepValue);
                 steps.push(stepValue)
             }
             this.recipe.etapes = steps;

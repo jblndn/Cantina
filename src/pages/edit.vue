@@ -29,12 +29,9 @@ export default {
     methods: {
         update: function(recipe){
             Service.updateRecipe(recipe).then(res => {
-                if (res.success === 1 ) {
-                    return this.$router.replace('/')
-                }
-                else{
-                    alert(res.message)
-                }
+                    this.$router.replace('/')
+            }).catch((error)=> {
+                alert(res.message)
             })
         }
     }

@@ -35,9 +35,9 @@ export default {
     },
 
     
-    // updateRecipe: function (userObj) {
-    //     return axios.put(`${API_ENDPOINT}/recipes/${userObj.id}`, userObj)
-    //         .then(res => res.data)
-    //         .catch(errorHandler)
-    // }
+    updateRecipe: function (userObj) {
+        return axios.put(`${API_ENDPOINT}/recipe/${userObj.id}`, userObj)
+            .then(res => res.data)
+            .catch(errorHandler)
+    }
 }
