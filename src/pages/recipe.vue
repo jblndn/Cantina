@@ -123,13 +123,23 @@ $grey: #999999;
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
+        @media only screen and (max-width: 500px) {
+            flex-direction: column;
+        }
         .img-recipe{
             max-width: 550px;
+
+            @media only screen and (max-width: 500px) {
+                width: 100%;
+            }
         }
         .container-text{
             margin-top: 60px;
             margin-left: 80px;
             color: $grey;
+            @media only screen and (max-width: 500px) {
+                margin-left: 50px;
+            }
             .title{
                 color: $red;
                 text-transform: uppercase;
