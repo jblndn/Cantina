@@ -146,7 +146,6 @@ export default {
         getSteps: function(){
             let stepDom = document.querySelectorAll('.one-step');
             let steps = [];
-            console.log(stepDom);
             for (let i = 0; i < stepDom.length; i++) {
                 let stepValue = stepDom[i].querySelector('#etape').value;
                 steps.push(stepValue)

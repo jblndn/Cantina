@@ -60,7 +60,6 @@ export default {
 
             if (ingredientStr !== "") {
                 var numbers = ingredientStr.match(/\d+/g);
-                console.log(numbers);
                 return numbers;
             }
             else{
