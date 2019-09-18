@@ -28,7 +28,7 @@ export default {
     },
     methods: {
         update: function(recipe){
-            Service.updateUser(recipe).then(res => {
+            Service.updateRecipe(recipe).then(res => {
                 if (res.success === 1 ) {
                     return this.$router.replace('/')
                 }
